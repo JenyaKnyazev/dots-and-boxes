@@ -41,7 +41,7 @@ namespace dots_and_boxes
             for(int i=0;i<m.GetLength(0);i++)
                 for(int r=0;r<m.GetLength(1);r++)
                     if(m[i,r]==null&&(i!=0||r!=0) )
-                        m[i,r]="*";
+                        m[i,r]=".";
             isGameStopped = false;
             player = true;
             score = 0;
@@ -52,8 +52,14 @@ namespace dots_and_boxes
             string len = int_to_string(this.len * this.len - 1);
             for(int i=0;i<m.GetLength(0);i++){
                 for (int r = 0; r < m.GetLength(1); r++){
-                    for (int j = 0; j < len.Length - m[i, r].Length; j++)
-                       Console.Write(' ');
+                    for (int j = 0; j < len.Length - m[i, r].Length; j++) {
+                        if (r == 0 || i % 2 == 1)
+                            Console.Write(" ");
+                        else if (m[i, r].Equals(".") || m[i, r].Equals("-"))
+                            Console.Write(m[i, r]);
+                        else
+                            Console.Write(m[i, r - 1]);
+                    }
                      Console.Write(m[i, r]);
                 }
                 Console.WriteLine();
@@ -137,7 +143,7 @@ namespace dots_and_boxes
                 return false;
             if (col1 > col2 && col1 - 2 != col2 || col2 > col1 && col2 - 2 != col1)
                 return false;
-            if (m[(row1+row2)/2, (col1+col2)/2].Equals("*")==false) 
+            if (m[(row1+row2)/2, (col1+col2)/2].Equals(".")==false) 
                 return false;
             return true;
         }
@@ -145,7 +151,7 @@ namespace dots_and_boxes
             int res=0;
             for(int i=0;i<m.GetLength(0)-2;i+=2)
                 for(int r=1;r<m.GetLength(1)-1;r+=2)
-                    if(m[i,r].Equals("*")==false&&m[i+1,r-1].Equals("*")==false&&m[i+1,r+1].Equals("*")==false&&m[i+2,r].Equals("*")==false){
+                    if(m[i,r].Equals(".")==false&&m[i+1,r-1].Equals(".")==false&&m[i+1,r+1].Equals(".")==false&&m[i+2,r].Equals(".")==false){
                         res++;
                         if(m[i+1,r].Equals(" ")){
                             if (player)
