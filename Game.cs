@@ -137,6 +137,8 @@ namespace dots_and_boxes
                 return false;
             if (col1 > col2 && col1 - 2 != col2 || col2 > col1 && col2 - 2 != col1)
                 return false;
+            if (m[(row1+row2)/2, (col1+col2)/2].Equals("*")==false) 
+                return false;
             return true;
         }
         private int score_(bool player) {
